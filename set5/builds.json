@@ -1,1 +1,1 @@
-[{"name": "Test", "champions": ["Vayne", "Irelia"], "carries": {"Vayne": [19, 29, 33]}}]
+[{"name": "TestBuild", "champions": ["Aatrox", "Vayne", "Irelia", "Lee Sin", "Nocturne", "Diana"], "carries": {"Aatrox": [77, 57, 66], "Diana": [11, 12, 29], "Lee Sin": [35], "Vayne": [23]}}]

@@ -1,29 +1,23 @@
 # ------- TO DO -------
 
 # "Cancel" after adding champs/items still adds them
-# Synergies don't have icons
-# Scroll wheel clicks things
+# Scroll wheel clicks things and it shouldn't
+# Add icons for synergies
 # Color-code synergies?
-# Scan for items while playing (click to toggle in the meantime?)
-	# Check mark for obtained
+# Mark obtained items to update "shopping list"
+	# Have user click to toggle for now
+	# Eventually read from game memory instead
+	# Check mark, greyed icon, or update qty for obtained
 
 
 
 # -------------------------- LIBRARIES --------------------------
 
-import time
 import pygame, sys
 import pygame.gfxdraw
 from pygame.locals import *
 import json
 import os
-
-
-# -------------------------- CLEAR CONSOLE --------------------------
-
-#import os
-os.system('cls' if os.name == 'nt' else 'clear')
-print("")
 
 
 
@@ -151,9 +145,14 @@ def drawText(text, textColor, textSize, posX, posY):
 	win.blit(font.render(text, True, textColor),font.render(text, True, textColor).get_rect(topleft=(posX, posY)))
 
 def drawTextBlock(text, textColor, textSize, boxColor, boxPosX, boxPosY, boxSizeX=winX, boxSizeY=text18Height):
+	border = 6
+	boxPosX = boxPosX + border
+	boxPosY = boxPosY + border
+	boxSizeX = boxSizeX - border*2
+	boxSizeY = boxSizeY - border*2
 	font = pygame.font.SysFont('Arial', textSize)
 	pygame.draw.rect(win, boxColor, [boxPosX, boxPosY, boxSizeX, boxSizeY])
-	win.blit(font.render(text, True, textColor),font.render(text, True, textColor).get_rect(center=(boxPosX+boxSizeX/2, boxPosY+boxSizeY/2)))
+	win.blit(font.render(text, True, textColor),font.render(text, True, textColor).get_rect(center=(boxPosX+boxSizeX/2, boxPosY+boxSizeY/2-2)))
 
 def drawMinusButton(iconRadius, iconCenterX, iconCenterY):
 	pygame.draw.circle(win, RED, (int(iconCenterX),int(iconCenterY)), iconRadius)
@@ -202,7 +201,7 @@ def drawChampionIcon(champion, cost, activeFlag, boxPosX, boxPosY, boxSize=64):
 		try:
 			icon = pygame.image.load(imagePathChamp(champion))
 		except:
-			print(champion)
+			pass
 		icon = pygame.transform.scale(icon, (64, 64))
 		win.blit(icon, (boxPosX, boxPosY))
 		if not activeFlag:
@@ -459,7 +458,7 @@ def selectScreen():
 		win.fill(BLACK)
 		
 		# Draw "Select build" instruction
-		drawTextBlock("Select your build:", WHITE, 18, BLACK, 0, 0)
+		drawTextBlock("Select your build:", WHITE, 18, BLACK, 0, text18Height)
 		# Draw build list
 		for i in range(len(buildList)):
 			drawTextBlock(buildList[i], WHITE, 18, BLUE, 0, winY/3+text18Height*i, winX, text18Height-2)
@@ -690,9 +689,7 @@ def editBuild(activeBuild):
 		win.fill(BLACK)
 		
 		# Draw build name
-		drawTextBlock(activeBuild, WHITE, 18, BLACK, 0, 0)
-		# Draw "Select component to edit" instruction
-		drawTextBlock("Select component to edit", BLACK, 18, BLUE, 0, text18Height)
+		drawTextBlock(activeBuild, WHITE, 18, BLACK, 0, text18Height)
 		# Draw components
 		row = 1
 		rowHeight = 80
@@ -761,17 +758,17 @@ def recipeScreen(activeBuild):
 					return
 			if event.type == pygame.MOUSEBUTTONDOWN:
 				mouseX, mouseY = pygame.mouse.get_pos()
-				if mouseY < text18Height*2:
+				if mouseY < text18Height:
 					return
 				if mouseY > winY-text18Height:
 					editBuild(activeBuild)
 	
 		win.fill(BLACK)
 		
-		# Draw build name
-		drawTextBlock(activeBuild, WHITE, 18, BLACK, 0, 0)
 		# Draw [CHANGE BUILD] button
-		drawTextBlock("[Change build]", BLACK, 18, BLUE, 0, text18Height)
+		drawTextBlock("[Change selected build]", BLACK, 18, BLUE, 0, 0)
+		# Draw build name
+		drawTextBlock(activeBuild, WHITE, 18, BLACK, 0, text18Height)
 		row = 1
 		rowHeight = 80
 		for champion in buildData["champions"]:
