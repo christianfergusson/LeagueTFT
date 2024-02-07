@@ -1,7 +1,6 @@
 # ------- TO DO -------
 
 # "Cancel" after adding champs/items still adds them
-# Scroll wheel clicks things and it shouldn't
 # Add icons for synergies
 # Color-code synergies?
 # Mark obtained items to update "shopping list"
@@ -240,7 +239,7 @@ def deleteBuild(selectedBuild):
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_ESCAPE:
 					return()
-			if event.type == pygame.MOUSEBUTTONDOWN:
+			if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
 				mouseX, mouseY = pygame.mouse.get_pos()
 				if mouseY > winY-text18Height:
 					# Delete
@@ -293,7 +292,7 @@ def editBuildName(selectedBuild):
 				elif event.unicode.isalnum():
 					if len(nameString) < 26:
 						nameString += event.unicode
-			if event.type == pygame.MOUSEBUTTONDOWN:
+			if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
 				mouseX, mouseY = pygame.mouse.get_pos()
 				if mouseY > winY-text18Height:
 					# Apply
@@ -355,7 +354,7 @@ def addBuild():
 				elif event.unicode.isalnum():
 					if len(nameString) < 26:
 						nameString += event.unicode
-			if event.type == pygame.MOUSEBUTTONDOWN:
+			if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
 				mouseX, mouseY = pygame.mouse.get_pos()
 				if mouseY > winY-text18Height:
 					# Apply
@@ -400,7 +399,7 @@ def editBuildList():
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_ESCAPE:
 					return
-			if event.type == pygame.MOUSEBUTTONDOWN:
+			if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
 				mouseX, mouseY = pygame.mouse.get_pos()
 				if mouseY > winY-text18Height:
 					return()
@@ -447,7 +446,7 @@ def selectScreen():
 			if event.type == QUIT:
 				pygame.quit()
 				sys.exit()
-			if event.type == pygame.MOUSEBUTTONDOWN:
+			if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
 				mouseX, mouseY = pygame.mouse.get_pos()
 				if mouseY > winY-text18Height:
 					editBuildList()
@@ -485,7 +484,7 @@ def selectItem(activeBuild, activeChampion, itemSlot):
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_ESCAPE:
 					return
-			if event.type == pygame.MOUSEBUTTONDOWN:
+			if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
 				mouseX, mouseY = pygame.mouse.get_pos()
 				if mouseY > text18Height and mouseY < winY-text18Height:
 					row = 0
@@ -563,7 +562,7 @@ def selectChampion(activeBuild, championSlot):
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_ESCAPE:
 					return
-			if event.type == pygame.MOUSEBUTTONDOWN:
+			if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
 				mouseX, mouseY = pygame.mouse.get_pos()
 				if mouseY > text18Height and mouseY < winY-text18Height:
 					row = 0
@@ -645,7 +644,7 @@ def editBuild(activeBuild):
 				# Escape
 				elif event.key == pygame.K_ESCAPE:
 					return()
-			if event.type == pygame.MOUSEBUTTONDOWN:
+			if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
 				mouseX, mouseY = pygame.mouse.get_pos()
 				buildData = next((item for item in builds if item["name"] == activeBuild),None)
 				# Change build
@@ -756,7 +755,7 @@ def recipeScreen(activeBuild):
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_ESCAPE:
 					return
-			if event.type == pygame.MOUSEBUTTONDOWN:
+			if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
 				mouseX, mouseY = pygame.mouse.get_pos()
 				if mouseY < text18Height:
 					return
