@@ -1,17 +1,3 @@
-# ------- TO DO -------
-
-# "Cancel" after adding champs/items still adds them
-# Add icons for synergies
-# Color-code synergies?
-# Mark obtained items to update "shopping list"
-	# Have user click to toggle for now
-	# Eventually read from game memory instead
-	# Check mark, greyed icon, or update qty for obtained
-
-
-
-# -------------------------- LIBRARIES --------------------------
-
 import pygame, sys
 import pygame.gfxdraw
 from pygame.locals import *
@@ -88,7 +74,7 @@ for index,value in reversed(list(enumerate(items))):
 full_items = list(filter(lambda value: value['id'] >= 10, items))
 
 
-# -------------------------- FUNCTIONS -------------------------- 
+# -------------------------- FUNCTIONS --------------------------
 
 def readJSON():
 	buildList = []
@@ -229,6 +215,8 @@ def darkenImage(imageName, x, y):
 
 
 
+
+# -------------------------- GUI PAGES --------------------------
 
 def deleteBuild(selectedBuild):
 	while True:
